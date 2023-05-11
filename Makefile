@@ -6,12 +6,12 @@
 #    By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 19:08:37 by mdi-paol          #+#    #+#              #
-#    Updated: 2023/05/11 16:46:34 by mdi-paol         ###   ########.fr        #
+#    Updated: 2023/05/11 22:07:00 by mdi-paol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosophers
-SRC = main.c utils1.c initialize.c
+SRC = main.c utils1.c initialize.c statements.c
 FLAGS = -Wall -Werror -Wextra -g -pthread
 
 all : $(NAME)

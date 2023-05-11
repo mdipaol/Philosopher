@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:30:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/11 20:00:38 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:07:45 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	*ft_print_all(void *info)
 	t_data	*data;
 
 	data = (t_data *) info;
-
-	printf("%d\n", data->philo[1].id);
-	ft_eating(data);
+	if (data->philo->id % 2 == 0)
+		usleep(30);
+	ft_statements(data);
 	return (NULL);
 }
 
@@ -54,7 +54,7 @@ void	ft_create_all(t_data *data)
 	while (i < data->n_philo)
 	{
 		pthread_create(&data->thread[i], NULL, &ft_print_all, (void *) data);
-		pthread_mutex_init(&data->mutex[i], NULL);
+		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
 	i = 0;
@@ -69,7 +69,6 @@ void	ft_init_all(t_data *data)
 {
 	data->philo = malloc (sizeof(t_philo) * data->n_philo);
 	data->thread = malloc (sizeof(pthread_t) * data->n_philo);
-	data->mutex = malloc (sizeof(pthread_mutex_t) * data->n_philo);
-	data->forks = malloc (sizeof(int) * data->n_philo + 1);
+	data->forks = malloc (sizeof(pthread_mutex_t) * data->n_philo);
 	ft_create_all(data);
 }

@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 19:08:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/11 18:12:47 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:44:30 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_data
 	int				n_t_must_eat;
 	t_philo			*philo;
 	pthread_t		*thread;
-	pthread_mutex_t	*mutex;
-	int				*forks;
+	pthread_mutex_t	*forks;
 	time_t			init_time;
 }		t_data;
 
 long int	ft_atoi(const char *nptr);
 void		ft_init_all(t_data *data);
+void		ft_statements(t_data *data);
 
 #endif
