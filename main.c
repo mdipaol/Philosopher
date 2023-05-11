@@ -6,11 +6,11 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 19:08:58 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/11 15:41:29 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:16:28 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philosophers.h"
+#include "philosophers.h"
 
 /* 	struct timeval time;
 	time_t tempo;
@@ -22,6 +22,10 @@
 
 void	ft_initialize_data(t_data *data)
 {
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	data->init_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	data->n_philo = 0;
 	data->t_die = 0;
 	data->t_eat = 0;
@@ -36,7 +40,7 @@ void	ft_get_value(t_data *data, char **argv)
 
 	i = 1;
 	flag = 1;
-	while(argv[i])
+	while (argv[i])
 	{
 		if (flag == 1)
 			data->n_philo = ft_atoi(argv[i]);
@@ -53,11 +57,11 @@ void	ft_get_value(t_data *data, char **argv)
 	}
 }
 
-int	main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	(void)argc;
 	t_data	data;
 
+	(void) argc;
 	ft_initialize_data(&data);
 	ft_get_value(&data, argv);
 	ft_init_all(&data);
