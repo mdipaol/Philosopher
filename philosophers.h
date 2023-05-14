@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 19:08:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/11 22:44:30 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:06:04 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef struct s_data t_data;
+
 typedef struct s_philo
 {
+	t_data			*data;
 	int				id;
 	int				t_eat;
 	int				t_sleep;
-	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*mutex_print;
 }		t_philo;
 
@@ -44,6 +45,7 @@ typedef struct s_data
 
 long int	ft_atoi(const char *nptr);
 void		ft_init_all(t_data *data);
-void		ft_statements(t_data *data);
+void		ft_statements(t_philo *philo);
+time_t	ft_get_time(void);
 
 #endif

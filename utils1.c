@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:17:02 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/11 12:17:40 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:08:41 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,13 @@ long int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (r * j);
+}
+
+time_t	ft_get_time(void)
+{
+	time_t	t;
+	struct timeval	time;
+
+	t = gettimeofday(&time, NULL);
+	return (t);
 }

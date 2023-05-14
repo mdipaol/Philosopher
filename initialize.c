@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:30:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/11 22:07:45 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:39:25 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 
 void	*ft_print_all(void *info)
 {
-	t_data	*data;
+	t_philo	*philo;
 
-	data = (t_data *) info;
-	if (data->philo->id % 2 == 0)
-		usleep(30);
-	ft_statements(data);
+	philo = (t_philo *) info;
+	if (philo->id % 2 == 0)
+		usleep(5000);
+	while(1)
+	{
+		ft_statements(philo);
+	}
 	return (NULL);
 }
 
@@ -41,9 +44,10 @@ void	ft_init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].t_eat = data->t_eat;
 		data->philo[i].t_sleep = data->t_sleep;
+		data->philo[i].data = data;
 		i++;
 	}
-}
+	}
 
 void	ft_create_all(t_data *data)
 {
@@ -51,9 +55,13 @@ void	ft_create_all(t_data *data)
 
 	i = 0;
 	ft_init_philo(data);
+/* 	for(int x = 0; x < data->n_philo; x++)
+	{
+		printf("FORK=%p\n", &data->forks[x]);
+	} */
 	while (i < data->n_philo)
 	{
-		pthread_create(&data->thread[i], NULL, &ft_print_all, (void *) data);
+		pthread_create(&data->thread[i], NULL, &ft_print_all, (void *) &data->philo[i]);
 		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
@@ -63,6 +71,7 @@ void	ft_create_all(t_data *data)
 		pthread_join(data->thread[i], NULL);
 		i++;
 	}
+
 }
 
 void	ft_init_all(t_data *data)
