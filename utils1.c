@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:17:02 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/14 18:08:41 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:28:27 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ long int	ft_atoi(const char *nptr)
 	return (r * j);
 }
 
-time_t	ft_get_time(void)
+time_t	ft_get_time(t_philo *philo)
 {
-	time_t	t;
-	struct timeval	time;
+	struct timeval time;
+	time_t t;
 
-	t = gettimeofday(&time, NULL);
+	gettimeofday(&time, NULL);
+
+	t = ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->data->init_time;
 	return (t);
 }
