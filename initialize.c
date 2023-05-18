@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:30:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/16 11:51:47 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:04:48 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	ft_init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].t_eat = data->t_eat;
 		data->philo[i].t_sleep = data->t_sleep;
+		data->philo[i].n_t_must_eat = data->n_t_must_eat;
+		data->philo[i].count_meal = 0;
 		data->philo[i].data = data;
 		i++;
 	}
@@ -66,12 +68,17 @@ void	ft_create_all(t_data *data)
 		printf("\033[31m%d %d died\n\033[0m", data->t_die, 1);
 		exit (1);
 	}
+	pthread_mutex_init(&data->print, NULL);
 	while (i < data->n_philo)
 	{
-		//printf("%d\n", ft_check_died(&data->philo[i]));
-		pthread_create(&data->thread[i], NULL, &ft_print_all, (void *) &data->philo[i]);
 		pthread_mutex_init(&data->forks[i], NULL);
 		pthread_mutex_init(&data->died[i], NULL);
+		i++;
+	}
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_create(&data->thread[i], NULL, &ft_print_all, (void *) &data->philo[i]);
 		i++;
 	}
 	//pthread_create(&data->died, NULL, &ft_check_died, (void *) &data->philo[i]);
