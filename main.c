@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 19:08:58 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/14 15:57:06 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/21 18:27:44 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	ft_initialize_data(t_data *data)
 	data->t_eat = 0;
 	data->t_sleep = 0;
 	data->n_t_must_eat = 0;
+	data->n_t_must_eat_exists = 0;
+	data->die = 0;
+	data->print_die = 0;
 }
 
 void	ft_get_value(t_data *data, char **argv)
@@ -51,7 +54,11 @@ void	ft_get_value(t_data *data, char **argv)
 		if (flag == 4)
 			data->t_sleep = ft_atoi(argv[i]);
 		if (flag == 5)
+		{
 			data->n_t_must_eat = ft_atoi(argv[i]);
+			if (data->n_t_must_eat)
+				data->n_t_must_eat_exists = 1;
+		}
 		i++;
 		flag++;
 	}

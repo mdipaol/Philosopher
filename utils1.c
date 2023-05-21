@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 12:17:02 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/16 10:28:27 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/21 18:39:57 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ time_t	ft_get_time(t_philo *philo)
 
 	t = ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->data->init_time;
 	return (t);
+}
+
+void	ft_exit(t_data	*data)
+{
+	free(data->forks);
+	free(data->philo);
+	free(data->thread);
+	free(data->died);
 }

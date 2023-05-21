@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:30:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/18 12:04:48 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:39:53 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 void	*ft_print_all(void *info)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
 
 
@@ -30,11 +30,19 @@ void	*ft_print_all(void *info)
 	i = philo->id - 1;
 	if (philo->id % 2 == 0)
 		usleep(5000);
-	while(1)
+	while (1)
 	{
 		ft_statements(philo);
 		pthread_mutex_lock(&philo->data->died[i]);
 		ft_check_died(philo, i);
+		pthread_mutex_lock(&philo->data->is_died);
+		if (philo->data->die || philo->finish_meal)
+		{
+			pthread_mutex_unlock(&philo->data->died[i]);
+			pthread_mutex_unlock(&philo->data->is_died);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->is_died);
 		pthread_mutex_unlock(&philo->data->died[i]);
 	}
 	return (NULL);
@@ -51,8 +59,9 @@ void	ft_init_philo(t_data *data)
 		data->philo[i].t_eat = data->t_eat;
 		data->philo[i].t_sleep = data->t_sleep;
 		data->philo[i].n_t_must_eat = data->n_t_must_eat;
-		data->philo[i].count_meal = 0;
+		data->philo[i].count_meal = 1;
 		data->philo[i].data = data;
+		data->philo[i].finish_meal = 0;
 		i++;
 	}
 	}
@@ -66,9 +75,11 @@ void	ft_create_all(t_data *data)
 	if (data->n_philo == 1)
 	{
 		printf("\033[31m%d %d died\n\033[0m", data->t_die, 1);
-		exit (1);
+		ft_exit(data);
+		return ;
 	}
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->is_died, NULL);
 	while (i < data->n_philo)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
@@ -81,14 +92,14 @@ void	ft_create_all(t_data *data)
 		pthread_create(&data->thread[i], NULL, &ft_print_all, (void *) &data->philo[i]);
 		i++;
 	}
-	//pthread_create(&data->died, NULL, &ft_check_died, (void *) &data->philo[i]);
+	while ()
 	i = 0;
 	while (i < data->n_philo)
 	{
 		pthread_join(data->thread[i], NULL);
 		i++;
 	}
-	//pthread_join(data->died, NULL);
+	ft_exit(data);
 }
 
 void	ft_init_all(t_data *data)
