@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 19:08:58 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/21 18:27:44 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:22:43 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,21 @@ void	ft_get_value(t_data *data, char **argv)
 	}
 }
 
+int	ft_check_value(t_data *data)
+{
+	if (data->n_philo < 0)
+		return (1);
+	if (data->t_die < 0)
+		return (1);
+	if (data->t_eat < 0)
+		return (1);
+	if (data->t_sleep < 0)
+		return (1);
+	if (data->n_t_must_eat < 0)
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -71,5 +86,7 @@ int	main(int argc, char **argv)
 	(void) argc;
 	ft_initialize_data(&data);
 	ft_get_value(&data, argv);
+	if (ft_check_value(&data))
+		return (write(2, "Error, check inputs\n", 20));
 	ft_init_all(&data);
 }

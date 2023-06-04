@@ -6,12 +6,12 @@
 #    By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 19:08:37 by mdi-paol          #+#    #+#              #
-#    Updated: 2023/05/21 18:59:51 by mdi-paol         ###   ########.fr        #
+#    Updated: 2023/06/02 15:00:28 by mdi-paol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-SRC = main.c utils1.c initialize.c statements.c statements1.c
+SRC = main.c utils1.c initialize.c statements.c statements1.c test.c
 FLAGS = -Wall -Werror -Wextra -g -pthread
 
 all : $(NAME)

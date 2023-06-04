@@ -6,7 +6,7 @@
 /*   By: mdi-paol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 19:08:54 by mdi-paol          #+#    #+#             */
-/*   Updated: 2023/05/21 18:36:28 by mdi-paol         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:17:05 by mdi-paol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	int				n_t_must_eat;
 	int				count_meal;
 	int				finish_meal;
+	int				died;
 	time_t			last_meal;
 }		t_philo;
 
@@ -45,10 +46,12 @@ typedef struct s_data
 	int				print_die;
 	t_philo			*philo;
 	pthread_t		*thread;
+	pthread_t		*is_died_true;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*died;
-	pthread_mutex_t is_died;
+	pthread_mutex_t	is_died;
 	pthread_mutex_t	print;
+	pthread_mutex_t	last_meal;
 	time_t			init_time;
 }		t_data;
 
@@ -59,6 +62,8 @@ time_t	ft_get_time_stamp(t_philo *philo);
 time_t	ft_get_time(t_philo *philo);
 void	ft_check_died(t_philo *philo, int i);
 void	ft_print_died(t_philo *philo, int i);
-void	ft_exit(t_data	*data);
+void	ft_exit(t_data *data);
+void	ft_test(t_data *data);
+void	ft_exit_one_philo(t_data *data);
 
 #endif
